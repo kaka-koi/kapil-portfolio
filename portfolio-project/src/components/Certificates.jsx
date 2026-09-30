@@ -38,19 +38,14 @@ const certificates = [
 ];
 
 function Certificates() {
-  const getAssetPath = (path) =>
-    `${import.meta.env.BASE_URL}${path}`;
-
   return (
     <section className="certificates reveal" id="certificates">
 
-      {/* SECTION LABEL */}
       <div className="section-label">
         <span>04</span>
         <span>CERTIFICATIONS & ACHIEVEMENTS</span>
       </div>
 
-      {/* HEADING */}
       <div className="certificates-heading">
         <h2>
           Proof of
@@ -64,54 +59,44 @@ function Certificates() {
         </p>
       </div>
 
-      {/* CERTIFICATE GRID */}
       <div className="certificate-grid">
-        {certificates.map((certificate, index) => {
-          const certificatePath = getAssetPath(certificate.image);
+        {certificates.map((certificate, index) => (
+          <article
+            className="certificate-card"
+            key={`${certificate.title}-${index}`}
+          >
 
-          return (
-            <article
-              className="certificate-card"
-              key={`${certificate.title}-${index}`}
+            <div className="certificate-number">
+              {String(index + 1).padStart(2, "0")}
+            </div>
+
+            <a
+              className="certificate-image"
+              href={certificate.image}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View ${certificate.title}`}
             >
+              <img
+                src={certificate.image}
+                alt={certificate.title}
+              />
 
-              {/* NUMBER */}
-              <div className="certificate-number">
-                {String(index + 1).padStart(2, "0")}
+              <div className="certificate-overlay">
+                <span>VIEW FULL CERTIFICATE ↗</span>
               </div>
+            </a>
 
-              {/* CLICKABLE CERTIFICATE */}
-              <a
-                className="certificate-image"
-                href={certificatePath}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`View ${certificate.title}`}
-              >
-                <img
-                  src={certificatePath}
-                  alt={certificate.title}
-                  loading="lazy"
-                />
+            <div className="certificate-info">
+              <span>{certificate.type}</span>
 
-                {/* HOVER OVERLAY */}
-                <div className="certificate-overlay">
-                  <span>VIEW FULL CERTIFICATE ↗</span>
-                </div>
-              </a>
+              <h3>{certificate.title}</h3>
 
-              {/* INFORMATION */}
-              <div className="certificate-info">
-                <span>{certificate.type}</span>
+              <p>{certificate.issuer}</p>
+            </div>
 
-                <h3>{certificate.title}</h3>
-
-                <p>{certificate.issuer}</p>
-              </div>
-
-            </article>
-          );
-        })}
+          </article>
+        ))}
       </div>
 
     </section>
@@ -119,4 +104,3 @@ function Certificates() {
 }
 
 export default Certificates;
-
